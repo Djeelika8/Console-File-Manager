@@ -55,101 +55,121 @@ import shutil
 from bank import bank
 from victory import victory
 
-while True:
-    print(' 1. создать папку')
-    print(' 2. удалить (файл/папку)')
-    print(' 3. копировать (файл/папку)')
-    print(' 4. просмотр содержимого рабочей директории')
-    print(' 5. посмотреть только папки;')
-    print(' 6. посмотреть только файлы')
-    print(' 7. просмотр информации об операционной системе')
-    print(' 8. создатель программы')
-    print(' 9. играть в викторину')
-    print('10. мой банковский счет')
-    print('11. смена рабочей директории (*необязательный пункт)')
-    print('12. выход')
 
-    choice = input('Выберите пункт меню: ')
-    if choice == '1':
-        # после выбора пользователь вводит название папки, создаем её в рабочей директории;
-        i_dir = input('Введите название папки: ')
-        os.mkdir(i_dir)
-        pass
-    elif choice == '2':
-        # удалить (файл/папку)
-        # после выбора пользователь вводит название папки или файла, удаляем из рабочей директории если такой есть;
-        del_dir = input('Введите название папки или файла: ')
-        path = pathlib.Path(del_dir)
-        if path.exists():
-            if path.is_file():
-                path.unlink()
+def Console_file_manager():
+    while True:
+        print(' 1. создать папку')
+        print(' 2. удалить (файл/папку)')
+        print(' 3. копировать (файл/папку)')
+        print(' 4. просмотр содержимого рабочей директории')
+        print(' 5. посмотреть только папки;')
+        print(' 6. посмотреть только файлы')
+        print(' 7. просмотр информации об операционной системе')
+        print(' 8. создатель программы')
+        print(' 9. играть в викторину')
+        print('10. мой банковский счет')
+        print('11. смена рабочей директории (*необязательный пункт)')
+        print('12. выход')
+
+        choice = input('Выберите пункт меню: ')
+        if choice == '1':
+            # после выбора пользователь вводит название папки, создаем её в рабочей директории;
+            mk_dir = input('Введите название для создания папки: ')
+            if not os.path.isdir(mk_dir):
+                os.mkdir(mk_dir)
             else:
-                shutil.rmtree(del_dir)
-        else:
-            print('Указанный файл ' + del_dir + ' не найден')
-        pass
-    elif choice == '3':
-        # - копировать (файл/папку)
-        # после выбора пользователь вводит название папки/файла и новое название папки/файла. Копируем;
-        from_path = input('Введите название папки или файла для копирования: ')
-        to_path = input('Введите новое название папки или файла: ')
-        if os.path.isdir(from_path):
-            shutil.copytree(from_path, to_path)
-        if os.path.isfile(from_path):
-            shutil.copy(from_path, to_path)
-        pass
-    elif choice == '4':
-        # просмотр содержимого рабочей директории
-        # вывод всех объектов в рабочей папке;
-        print('Содержимое рабочей папки ' + os.path.abspath(os.curdir))
-        for filename in os.listdir():
-            print(filename)
-        print()
-        pass
-    elif choice == '5':
-        # посмотреть только папки
-        # вывод только папок которые находятся в рабочей папке;
-        for filename in os.listdir():
-            if os.path.isdir(filename):
-                print(filename)
-        pass
-    elif choice == '6':
-        # - посмотреть только файлы
-        # вывод только файлов которые находятся в рабочей папке;
-        for filename in os.listdir():
-            if os.path.isfile(filename):
-                print(filename)
-        pass
-    elif choice == '7':
-        # - просмотр информации об операционной системе
-        # вывести информацию об операционной системе (можно использовать пример из 1-го урока);
-        print(platform.system())
-        print(platform.release())
-        print(platform.architecture())
-        print(platform.processor())
-        pass
-    elif choice == '8':
-        # - создатель программы
-        # вывод информации о создателе программы;
-        print('Евгений')
-        pass
-    elif choice == '9':
-        # - играть в викторину
-        # запуск игры викторина из предыдущего дз;
-        victory()
-        pass
-    elif choice == '10':
-        # просмотр содержимого рабочей директории
-        # Банковский счет
-        bank()
-        pass
-    elif choice == '11':
-        # просмотр содержимого рабочей директории
-        from_path = input('Введите название папки или файла для копирования: ')
-        to_path = input('Введите новое название папки или файла: ')
-        pass
+                print('Папка уже существует')
 
-    elif choice == '12':
-        break
-    else:
-        print('Неверный пункт меню')
+        # elif choice == '2':
+        #     # удалить (файл/папку)
+        #     # после выбора пользователь вводит название папки или файла, удаляем из рабочей директории если такой есть;
+        #     del_dir = input('Введите название для удаления папки или файла: ')
+        #     path = pathlib.Path(del_dir)
+        #     if path.exists():
+        #         if path.is_file():
+        #             path.unlink()
+        #         else:
+        #             shutil.rmtree(del_dir)
+        #     else:
+        #         print('Указанный файл ' + del_dir + ' не найден')
+
+        elif choice == '2':  # удалить (файл/папку)
+            rm_dir = input('Внесите название удаляемого файла\папки: ')
+            try:
+                os.rmdir(rm_dir)
+            except FileNotFoundError:
+                print('Файл отсуствует:')
+            except NotADirectoryError:
+                os.remove(rm_dir)
+
+
+
+        elif choice == '3':
+            # - копировать (файл/папку)
+            # после выбора пользователь вводит название папки/файла и новое название папки/файла. Копируем;
+            from_path = input('Введите название папки или файла для копирования: ')
+            to_path = input('Введите новое название папки или файла: ')
+            if os.path.isdir(from_path):
+                shutil.copytree(from_path, to_path)
+            if os.path.isfile(from_path):
+                shutil.copy(from_path, to_path)
+
+        elif choice == '4':
+            # вывод всех объектов в рабочей папке;
+            # print(os.listdir())
+            print('Содержимое рабочей папки ' + os.path.abspath(os.curdir))
+            for filename in os.listdir():
+                print(filename)
+            print()
+
+        elif choice == '5':
+            # посмотреть только папки
+            # вывод только папок которые находятся в рабочей папке;
+            for filename in os.listdir():
+                if os.path.isdir(filename):
+                    print(filename)
+
+        elif choice == '6':
+            # - посмотреть только файлы
+            # вывод только файлов которые находятся в рабочей папке;
+            for filename in os.listdir():
+                if os.path.isfile(filename):
+                    print(filename)
+
+        elif choice == '7':
+            # - просмотр информации об операционной системе
+            # вывести информацию об операционной системе (можно использовать пример из 1-го урока);
+            print(f'Информация об ОС: {platform.platform()}')
+            print(platform.system())
+            print(platform.release())
+            print(platform.architecture())
+            print(platform.processor())
+            pass
+        elif choice == '8':
+            # - создатель программы
+            # вывод информации о создателе программы;
+            print('Создатель программы: \nСтудент/Куратор УИИ: Anjela')
+
+        elif choice == '9':
+            # - играть в викторину
+            print('__________Игра Викторина__________')
+            victory()
+
+        elif choice == '10':
+            # Банковский счет
+            print('__________Игра "Мой банковский счет"__________')
+            bank()
+
+        elif choice == '11':  # '11. смена рабочей директории *необязательный пункт'
+            print(f"Текущий рабочий каталог: {os.getcwd()}")
+            ch_dir = input('Введите путь для смены каталога')
+            # Изменение текущего рабочего каталога
+            os.chdir(ch_dir)
+            # Печать текущего рабочего каталога
+            print(f"Текущий рабочий каталог: {os.getcwd()}")
+
+        elif choice == '12':
+            print('Выход из консольного файлового менеджера')
+            break
+        else:
+            print('Неверный пункт меню')

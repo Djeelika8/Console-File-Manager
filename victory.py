@@ -21,32 +21,35 @@
 # right = 0
 # Количество неправильных ответов
 # wrong = 0
+
 def victory():
-    ct = 0
-    cf = 0
-    dn = ['Женя', 'Юля', 'Дима', 'Алеша', 'Данил']
-    dy = [1962, 1972, 1978, 1979, 1982]
+    scores = 0
+    err = 0
+    names = ['Николай', 'Юлия', 'Дмитрий', 'Алеша', 'Святослав']
+    true_year = [1962, 1972, 1965, 1979, 1985]
     i = 0
     while True:
-        while i < len(dy):
-            birth_year = int(input('Год рождения ' + dn[i] + ' (подсказка -' + str(dy[i]) + ')? : '))
-            if birth_year == dy[i]:
-                ct += 1
+        while i < len(true_year):
+            birth_year = input('Год рождения ' + names[i] + ' (подсказка: ' + str(true_year[i]) + ')? : ')
+            while not birth_year.isdigit():
+                birth_year = input('Внесите корректное число: ')
+            birth_year = int(birth_year)
+
+            if birth_year == true_year[i]:
+                scores += 1
             else:
-                cf += 1
+                err += 1
             i += 1
 
-        print('\nПравильных ответов ', ct)
-        print('Количество ошибок ', cf)
-        print('процент правильных ответов', ct * 100 / len(dy))
-        print('процент неправильных ответов', cf * 100 / len(dy))
+        print('\nПравильных ответов ', scores)
+        print('Количество ошибок ', err)
+        print('процент правильных ответов', scores * 100 / len(true_year))
+        print('процент неправильных ответов', err * 100 / len(true_year))
         yes = (input('Повторить игру Да/Нет?: '))
         if yes == 'Нет':
             print('До скорого... !')
             break
         else:
             i = 0
-            cf = 0
-            ct = 0
-
-
+            err = 0
+            scores = 0

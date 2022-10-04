@@ -1,41 +1,46 @@
 def input_money(text):
-    return (input(text))
+    money = input(text)
+    while not money.isdigit():
+        money = input('Внесите корректную сумму: ')
+    return float(money)
 
 
-def p_hist(hist):
-    for j in hist:
-        print(j[0], '  ', j[1])
-    pass
+def shopping_hist(hist):
+    for shop in hist:
+        print(shop[0], '  стоимостью  ', shop[1])
 
 
 def bank():
     money = 0.00
     hist = []
     while True:
+        print('0. текущий баланс')
         print('1. пополнение счета')
         print('2. покупка')
         print('3. история покупок')
         print('4. выход')
 
         ch = input('Выберите пункт меню: ')
-        if ch == '1':
-            money += float(input_money('Введите сумму пополнения: '))
-            pass
+
+        if ch == '0':
+            print(f'Ваш остаток = {money}')
+
+        elif ch == '1':
+            money += input_money('Введите сумму пополнения: ')
+
         elif ch == '2':
-            deb = float(input_money('Введите сумму покупки: '))
+            deb = input_money('Введите сумму покупки: ')
             if deb > money:
                 print('Сумма покупки больше доступного остатка')
             else:
-                s = input_money('Введите название покупки: ')
+                s = input('Введите название покупки: ')
                 money = money - deb
                 hist.append([s, deb])
             pass
         elif ch == '3':
-            p_hist(hist)
-            pass
+            shopping_hist(hist)
+
         elif ch == '4':
-            ch = '0'
-            return
+            break
         else:
             print('Неверный пункт меню')
-
