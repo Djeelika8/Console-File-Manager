@@ -58,6 +58,7 @@ from victory import victory
 
 def Console_file_manager():
     while True:
+        print('------------------------------------------------')
         print(' 1. создать папку')
         print(' 2. удалить (файл/папку)')
         print(' 3. копировать (файл/папку)')
@@ -152,7 +153,7 @@ def Console_file_manager():
 
         elif choice == '9':
             # - играть в викторину
-            print('__________Игра Викторина__________')
+            print('____________ Игра "Викторина" ____________')
             victory()
 
         elif choice == '10':
