@@ -51,6 +51,7 @@ import os
 import pathlib
 import platform
 import shutil
+import sys
 
 from bank import bank
 from victory import victory
@@ -59,6 +60,7 @@ from victory import victory
 def Console_file_manager():
     while True:
         print('------------------------------------------------')
+        print(' 0. выход/завершение программы')
         print(' 1. создать папку')
         print(' 2. удалить (файл/папку)')
         print(' 3. копировать (файл/папку)')
@@ -70,7 +72,7 @@ def Console_file_manager():
         print(' 9. играть в викторину')
         print('10. мой банковский счет')
         print('11. смена рабочей директории (*необязательный пункт)')
-        print('12. выход')
+
 
         choice = input('Выберите пункт меню: ')
         if choice == '1':
@@ -129,6 +131,7 @@ def Console_file_manager():
             for filename in os.listdir():
                 if os.path.isdir(filename):
                     print(filename)
+            print()
 
         elif choice == '6':
             # - посмотреть только файлы
@@ -136,6 +139,7 @@ def Console_file_manager():
             for filename in os.listdir():
                 if os.path.isfile(filename):
                     print(filename)
+            print()
 
         elif choice == '7':
             # - просмотр информации об операционной системе
@@ -145,7 +149,7 @@ def Console_file_manager():
             print(platform.release())
             print(platform.architecture())
             print(platform.processor())
-            pass
+
         elif choice == '8':
             # - создатель программы
             # вывод информации о создателе программы;
@@ -169,8 +173,9 @@ def Console_file_manager():
             # Печать текущего рабочего каталога
             print(f"Текущий рабочий каталог: {os.getcwd()}")
 
-        elif choice == '12':
+        elif choice == '0':
             print('Выход из консольного файлового менеджера')
-            break
+            sys.exit(0)  # Системный выход из программы вместо break
+            # break
         else:
             print('Неверный пункт меню')

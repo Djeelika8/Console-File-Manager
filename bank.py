@@ -4,7 +4,7 @@ def input_money(text):
         money = input('Внесите корректную сумму: ')
     return float(money)
 
-
+# НЕ ЧИСТАЯ функция
 def shopping_hist(hist):
     for shop in hist:
         print(shop[0], '  стоимостью  ', shop[1])
@@ -36,11 +36,12 @@ def bank():
                 s = input('Введите название покупки: ')
                 money = money - deb
                 hist.append([s, deb])
-            pass
+
         elif ch == '3':
             shopping_hist(hist)
 
         elif ch == '4':
+            print('Выход из Игры "Мой банковский счет"')
             break
         else:
             print('Неверный пункт меню')
