@@ -1,5 +1,5 @@
-def input_money(text):
-    money = input(text)
+# НЕ ЧИСТАЯ функция
+def CheckedNumber(money):
     while not money.isdigit():
         money = input('Внесите корректную сумму: ')
     return float(money)
@@ -14,22 +14,25 @@ def bank():
     money = 0.00
     hist = []
     while True:
-        print('0. текущий баланс')
+        print('0. выход')
         print('1. пополнение счета')
         print('2. покупка')
         print('3. история покупок')
-        print('4. выход')
+        print('4. текущий баланс')
 
         ch = input('Выберите пункт меню: ')
 
         if ch == '0':
-            print(f'Ваш остаток = {money}')
+            print('Выход из Игры "Мой банковский счет"')
+            break
 
         elif ch == '1':
-            money += input_money('Введите сумму пополнения: ')
+            input_money = input('Введите сумму пополнения: ')
+            money += CheckedNumber(input_money)
 
         elif ch == '2':
-            deb = input_money('Введите сумму покупки: ')
+            input_money = input('Введите сумму покупки: ')
+            deb = CheckedNumber(input_money)
             if deb > money:
                 print('Сумма покупки больше доступного остатка')
             else:
@@ -41,7 +44,6 @@ def bank():
             shopping_hist(hist)
 
         elif ch == '4':
-            print('Выход из Игры "Мой банковский счет"')
-            break
+            print(f'Ваш остаток = {money}')
         else:
             print('Неверный пункт меню')
